@@ -32,17 +32,18 @@ func respondWithJSON(w http.ResponseWriter, status int, payload interface{}) {
 }
 
 func main() {
-	const filePath = "."
-	const port = ":8080"
+	const filePath = "frontend"
+	const port = "8080"
 
 	serveMux := http.NewServeMux()
 
 	serveMux.Handle("/", http.FileServer(http.Dir(filePath)))
 
 	myServeMux := &http.Server{
-		Addr:    port,
+		Addr:    ":" + port,
 		Handler: serveMux,
 	}
+
 	err := myServeMux.ListenAndServe()
 	if err != http.ErrServerClosed {
 		log.Fatal("Server error: ", err)
